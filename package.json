@@ -3,7 +3,7 @@
   "name": "latex-math-symbols",
   "title": "LateX Math Symbols",
   "description": "Search and copy LateX Math Symbols",
-  "icon": "icon.png",
+  "icon": "assets/icon.png",
   "author": "almatkai",
   "categories": [
     "Developer Tools"
