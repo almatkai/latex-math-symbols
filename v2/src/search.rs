@@ -32,24 +32,37 @@ fn field_score(pattern: &[u16], text: &[u16]) -> Option<f64> {
     if pattern == text {
         return Some(0.0);
     }
-    let mut chunks = Vec::new();
     if pattern.len() <= 32 {
-        chunks.push((pattern, 0));
-    } else {
-        let end = pattern.len() - pattern.len() % 32;
-        for start in (0..end).step_by(32) {
-            chunks.push((&pattern[start..start + 32], start));
-        }
-        if pattern.len() % 32 != 0 {
-            let start = pattern.len() - 32;
-            chunks.push((&pattern[start..], start));
-        }
+        let (found, score) = bitap(text, pattern, 0);
+        return found.then_some(score);
     }
+    let mut chunks = Vec::new();
+    let end = pattern.len() - pattern.len() % 32;
+    for start in (0..end).step_by(32) {
+        chunks.push((&pattern[start..start + 32], start));
+    }
+    if pattern.len() % 32 != 0 {
+        let start = pattern.len() - 32;
+        chunks.push((&pattern[start..], start));
+    }
+    // Bitap clamps every offset beyond this field to text.len(). Only there can
+    // identical chunks share a result; earlier offsets must be evaluated separately.
+    // Keep this cache local to the field and include unmatched results as well.
+    let mut clamped_results: Vec<(&[u16], (bool, f64))> = Vec::new();
     let mut matched = false;
     let mut total = 0.0;
     for &(chunk, offset) in &chunks {
-        let (found, score) = bitap(text, chunk, offset);
+        let (found, score) = if offset < text.len() {
+            bitap(text, chunk, offset)
+        } else if let Some((_, result)) = clamped_results.iter().find(|(key, _)| *key == chunk) {
+            *result
+        } else {
+            let result = bitap(text, chunk, offset);
+            clamped_results.push((chunk, result));
+            result
+        };
         matched |= found;
+        // Preserve every addition and the original denominator, even on cache hits.
         total += score;
     }
     matched.then_some(total / chunks.len() as f64)
@@ -130,4 +143,121 @@ fn bitap(text: &[u16], pattern: &[u16], location: usize) -> (bool, f64) {
         last = bits;
     }
     (best.is_some(), final_score.max(0.001))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{bitap, field_score, units};
+
+    // Original, uncached Fuse chunk evaluation: independent of the cache path.
+    fn uncached_field_score(pattern: &[u16], text: &[u16]) -> Option<f64> {
+        if pattern == text {
+            return Some(0.0);
+        }
+        let mut chunks = Vec::new();
+        if pattern.len() <= 32 {
+            chunks.push((pattern, 0));
+        } else {
+            let end = pattern.len() - pattern.len() % 32;
+            for start in (0..end).step_by(32) {
+                chunks.push((&pattern[start..start + 32], start));
+            }
+            if pattern.len() % 32 != 0 {
+                let start = pattern.len() - 32;
+                chunks.push((&pattern[start..], start));
+            }
+        }
+        let mut matched = false;
+        let mut total = 0.0;
+        for (chunk, offset) in &chunks {
+            let (found, score) = bitap(text, chunk, *offset);
+            matched |= found;
+            total += score;
+        }
+        matched.then_some(total / chunks.len() as f64)
+    }
+
+    fn assert_exact(query: &str, field: &str) {
+        let pattern = units(query);
+        let text = units(field);
+        assert_eq!(
+            field_score(&pattern, &text).map(f64::to_bits),
+            uncached_field_score(&pattern, &text).map(f64::to_bits),
+            "query UTF-16 length {}, field {field:?}",
+            pattern.len(),
+        );
+    }
+
+    #[test]
+    fn short_and_utf16_scores_are_bit_exact() {
+        for query in [
+            "a", "alpha", "ALPHA", "\\sum", "∑", "İ", "😀", "a😀B", "notfound",
+        ] {
+            for field in [
+                "",
+                "alpha",
+                "\\alpha",
+                "sum; summation",
+                "İ a😀b ∑",
+                "a\tb\nc",
+            ] {
+                assert_exact(query, field);
+            }
+        }
+        assert_exact("", ""); // Nonempty fields never receive an empty query in production.
+    }
+
+    #[test]
+    fn overlapping_tail_and_offsets_are_bit_exact() {
+        for length in [32, 33, 63, 64, 65, 95, 96, 97] {
+            let repeated = "a".repeat(length);
+            let mixed: String = (0..length)
+                .map(|i| if i % 3 == 0 { 'b' } else { 'a' })
+                .collect();
+            for query in [&repeated, &mixed] {
+                for field in [
+                    "".to_string(),
+                    "a".repeat(31),
+                    "a".repeat(32),
+                    "a".repeat(33),
+                    "a".repeat(64),
+                    "ab ".repeat(40),
+                    query.to_string(),
+                ] {
+                    assert_exact(query, &field);
+                }
+            }
+        }
+        assert_exact(&"😀".repeat(33), "a😀 a😀 a😀"); // 66 UTF-16 units, not 33.
+    }
+
+    #[test]
+    fn unmatched_chunks_still_contribute_to_total_and_denominator() {
+        let query = format!("{}{}{}", "a".repeat(32), "z".repeat(32), "a".repeat(32));
+        let text = units(&"a".repeat(32));
+        assert!(bitap(&text, &units(&"a".repeat(32)), 32).0);
+        assert!(!bitap(&text, &units(&"z".repeat(32)), 32).0);
+        assert_exact(&query, "a");
+        assert_exact(&query, &"a".repeat(32));
+    }
+
+    #[test]
+    fn repeated_and_mixed_4096_units_are_bit_exact() {
+        for query in [
+            "a".repeat(4096),
+            "z".repeat(4096),
+            "😀".repeat(2048),
+            format!("{}{}", "a".repeat(32), "z".repeat(32)).repeat(64),
+            "alpha summation infinity omega "
+                .repeat(137)
+                .chars()
+                .take(4096)
+                .collect(),
+        ] {
+            assert_eq!(query.encode_utf16().count(), 4096);
+            for field in ["a", "\\alpha", "sum; summation", "😀 alpha infinity"] {
+                assert_exact(&query, field);
+            }
+        }
+    }
 }
