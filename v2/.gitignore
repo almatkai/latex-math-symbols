@@ -1,0 +1,5 @@
+/target/
+/.work/
+# Validation vendors intentionally remain visible even if named dist.
+!libraries/
+!libraries/**

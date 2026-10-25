@@ -1,0 +1,8 @@
+//! Adapter also compiles as a local all-targets lint/test target, not only as a dependency.
+pub mod native_core {
+    pub use latex_beta_fixture::native_core::common;
+    pub mod extensions {
+        pub use latex_beta_fixture::native_core::extensions::v2_sdk;
+        pub mod v2_latex_math_symbols;
+    }
+}

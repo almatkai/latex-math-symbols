@@ -1,0 +1,42 @@
+use latex_beta_fixture::native_core::{
+    common::{CoreContext, CorePaths},
+    extensions::v2_latex_math_symbols::handle,
+};
+use serde_json::{json, Value};
+use std::io::{self, BufRead};
+#[tokio::main]
+async fn main() {
+    let ctx = CoreContext::new(
+        CorePaths {
+            data_dir: "disabled".into(),
+            config_dir: "disabled".into(),
+            resource_dir: "disabled".into(),
+            temp_dir: "disabled".into(),
+            home_dir: "disabled".into(),
+        },
+        None,
+    );
+    for line in io::stdin().lock().lines() {
+        let query: String = serde_json::from_str(&line.unwrap()).unwrap();
+        let mut state = json!({});
+        handle(
+            &ctx,
+            "index",
+            "extension:run-command",
+            &json!({}),
+            &mut state,
+        )
+        .await
+        .unwrap();
+        let out = handle(
+            &ctx,
+            "index",
+            "extension:search-text-changed",
+            &json!({"searchText":query}),
+            &mut state,
+        )
+        .await;
+        let value: Value = out.unwrap_or_else(|e| json!({"error":e}));
+        println!("{value}");
+    }
+}

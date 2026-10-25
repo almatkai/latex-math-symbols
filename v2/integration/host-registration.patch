@@ -1,0 +1,104 @@
+--- a/src-tauri/src/native_core/extensions/mod.rs
++++ b/src-tauri/src/native_core/extensions/mod.rs
+@@ -12,6 +12,8 @@
+ mod v2_google_search;
+ mod v2_perplexity;
+ mod v2_port_manager;
++#[path = "../../../native-extensions/latex-math-symbols/adapter/v2_latex_math_symbols.rs"]
++mod v2_latex_math_symbols;
+ mod v2_runtime;
+ mod v2_sdk;
+ mod v2_speedtest;
+--- a/src-tauri/src/native_core/extensions/v2_catalog.json
++++ b/src-tauri/src/native_core/extensions/v2_catalog.json
+@@ -2589,5 +2589,50 @@
+         "state": "not-run"
+       }
+     ]
+-  }
++  },
++{
++  "schemaVersion": 2,
++  "id": "com.tezbar.native.latex-math-symbols",
++  "slug": "latex-math-symbols",
++  "name": "LateX Math Symbols",
++  "version": "0.1.0",
++  "description": "Search and copy LateX Math Symbols. Original extension by JeffersonDing; native port includes MIT and Apache-2.0 notices.",
++  "icon": "/extensions/icons/latex-math-symbols.png",
++  "runtime": "rust",
++  "replaces": [
++    "raycast.latex-math-symbols"
++  ],
++  "platforms": [
++    "macOS",
++    "Windows"
++  ],
++  "preferences": [],
++  "commands": [
++    {
++      "name": "index",
++      "title": "Search LateX Symbols",
++      "description": "Search through a library of latex math symbols from amsmath",
++      "mode": "view",
++      "arguments": [],
++      "preferences": [],
++      "platforms": [
++        "macOS",
++        "Windows"
++      ],
++      "runtime": "rust"
++    }
++  ],
++  "verification": [
++    {
++      "platform": "macOS",
++      "state": "not-run",
++      "note": "Host registration, rebuild and real desktop QA not run."
++    },
++    {
++      "platform": "Windows",
++      "state": "not-run",
++      "note": "Cross compilation is not real desktop QA."
++    }
++  ]
++}
+ ]
+--- a/src-tauri/Cargo.toml
++++ b/src-tauri/Cargo.toml
+@@ -21,6 +21,7 @@
+ semver = "1.0"
+ 
+ [dependencies]
++latex-math-symbols-native = { path = "native-extensions/latex-math-symbols" }
+ serde_json = "1.0"
+ serde = { version = "1.0", features = ["derive"] }
+ semver = "1.0"
+--- a/src-tauri/src/native_core/extensions/v2_runtime.rs
++++ b/src-tauri/src/native_core/extensions/v2_runtime.rs
+@@ -8,7 +8,7 @@
+         .or_else(|| id.strip_prefix("raycast."))
+         .unwrap_or(id);
+     match value {
+-        "amphetamine" | "audio-device" | "cleanshotx" | "color-picker" | "gif-search"
++        "latex-math-symbols" | "amphetamine" | "audio-device" | "cleanshotx" | "color-picker" | "gif-search"
+         | "google-calendar" | "google-search" | "port-manager" | "speedtest" | "timers"
+         | "perplexity" => Some(value),
+         _ => None,
+@@ -19,6 +19,7 @@
+ }
+ pub(super) fn commands(slug: &str) -> &'static [&'static str] {
+     match slug {
++        "latex-math-symbols" => super::v2_latex_math_symbols::commands(),
+         "amphetamine" => super::v2_amphetamine::commands(),
+         "audio-device" => super::v2_audio_device::commands(),
+         "cleanshotx" => super::v2_cleanshotx::commands(),
+@@ -45,6 +46,9 @@
+     state: &mut Value,
+ ) -> CoreResult {
+     match slug {
++        "latex-math-symbols" => {
++            super::v2_latex_math_symbols::handle(ctx, command, operation, payload, state).await
++        }
+         "amphetamine" => {
+             super::v2_amphetamine::handle(ctx, command, operation, payload, state).await
+         }
