@@ -1,0 +1,92 @@
+//! Unchanged beta NativeSessions with labelled registry/install/dispatch stubs.
+pub mod native_core {
+    pub use latex_beta_sdk_fixture::native_core::common;
+    pub mod extensions {
+        pub use latex_beta_sdk_fixture::native_core::extensions::v2_sdk;
+        mod native;
+        pub mod v2_latex_math_symbols;
+        /// TEST STUB: this minimal registry reads only a disposable fixture package.
+        mod registry {
+            use crate::native_core::common::{CoreContext, CoreResult};
+            use serde_json::Value;
+            pub fn installed_command(ctx: &CoreContext, id: &str, command: &str) -> Option<Value> {
+                if !super::v2_runtime::supports(id, command) {
+                    return None;
+                }
+                let value: Value = serde_json::from_slice(
+                    &std::fs::read(ctx.paths.data_dir.join("installed.json")).ok()?,
+                )
+                .ok()?;
+                (value["installed"] == true).then_some(value)
+            }
+            pub fn preferences(value: &Value, _: Option<&str>) -> CoreResult {
+                Ok(value["preferences"].clone())
+            }
+        }
+        /// TEST STUB: only this extension is registered; production dispatch is documented.
+        pub mod v2_runtime {
+            use crate::native_core::common::{CoreContext, CoreResult};
+            use serde_json::Value;
+            pub fn slug(id: &str) -> Option<&str> {
+                let s = id
+                    .strip_prefix("com.tezbar.native.")
+                    .or_else(|| id.strip_prefix("raycast."))
+                    .unwrap_or(id);
+                (s == "latex-math-symbols").then_some(s)
+            }
+            pub fn commands(slug: &str) -> &'static [&'static str] {
+                if slug == "latex-math-symbols" {
+                    super::v2_latex_math_symbols::commands()
+                } else {
+                    &[]
+                }
+            }
+            pub fn canonical_id(slug: &str) -> String {
+                format!("com.tezbar.native.{slug}")
+            }
+            pub fn supports(id: &str, command: &str) -> bool {
+                slug(id).is_some_and(|s| commands(s).contains(&command))
+            }
+            pub async fn handle(
+                ctx: &CoreContext,
+                slug: &str,
+                command: &str,
+                op: &str,
+                payload: &Value,
+                state: &mut Value,
+            ) -> CoreResult {
+                if slug != "latex-math-symbols" {
+                    return Err("Unknown adapter".into());
+                }
+                super::v2_latex_math_symbols::handle(ctx, command, op, payload, state).await
+            }
+        }
+        #[derive(Clone, Default)]
+        pub struct Sessions(native::NativeSessions);
+        impl Sessions {
+            pub async fn call(
+                &self,
+                ctx: &super::common::CoreContext,
+                channel: &str,
+                payload: serde_json::Value,
+            ) -> serde_json::Value {
+                self.0
+                    .handle(
+                        ctx,
+                        &std::sync::Arc::new(std::sync::Mutex::new(())),
+                        channel,
+                        &[payload],
+                    )
+                    .await
+                    .unwrap_or_else(|| Ok(serde_json::json!({"fallback":true})))
+                    .expect("NativeSessions converts errors to object results")
+            }
+            pub async fn clear(&self) {
+                self.0.clear().await;
+            }
+            pub async fn clear_slug(&self) {
+                self.0.clear_slug("latex-math-symbols").await;
+            }
+        }
+    }
+}

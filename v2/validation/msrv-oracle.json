@@ -1,0 +1,10 @@
+{
+  "queries": 2492,
+  "exactRowsAndOrder": 37745,
+  "scoreComparisons": 37614,
+  "scoreNonBitExact": 0,
+  "maxRelativeError": 0,
+  "scoreRelativeTolerance": 0,
+  "actualBetaReconciliations": 2492,
+  "actualOwnCopyActions": 131
+}

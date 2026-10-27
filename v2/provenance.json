@@ -1,0 +1,339 @@
+{
+  "sourceRepository": "https://github.com/almatkai/latex-math-symbols",
+  "sourceCommit": "a7429d60fca9a8943c61372a73fbedade03c30c4",
+  "originalCommit": "6734d85992290066fd31a7f5bee3cca3d3545a1a",
+  "betaCommit": "fd300e276356587726566026f072563eb9c34cb1",
+  "files": [
+    {
+      "path": "fixtures/beta/LICENSE",
+      "bytes": 10750,
+      "sha256": "0ed6b1b2760294d4aaaa45be38e166fcc0168e1dd5190423c096fcbe1c94afbf"
+    },
+    {
+      "path": "fixtures/beta/docs/NATIVE_V2_FORMAT.md",
+      "bytes": 2593,
+      "sha256": "8bf9315ad047326dd6737587ca5491fc35faf5e3f92a2d9c63f596be0c8f7b7a"
+    },
+    {
+      "path": "fixtures/beta/licenses/raycast-extensions-MIT.txt",
+      "bytes": 1064,
+      "sha256": "7f727f8b20cdd0e65f84e70b9cac2fce337dcecee4dc88955eb012ea27f02755"
+    },
+    {
+      "path": "fixtures/beta/package.json",
+      "bytes": 2909,
+      "sha256": "a9e41304960cd456d9f0b223110cd3abfd012c8899fa703acacee6b0d719faf7"
+    },
+    {
+      "path": "fixtures/beta/pnpm-lock.yaml",
+      "bytes": 158612,
+      "sha256": "9ea96c8e56c802695899d7014a573fadff8a37fd665fa71225526bd41b659bfc"
+    },
+    {
+      "path": "fixtures/beta/schemas/extension-v2.schema.json",
+      "bytes": 2420,
+      "sha256": "6d5afda1b652605982104bdf16d1547547b98dfd707a7b2969316406c49f32af"
+    },
+    {
+      "path": "fixtures/beta/src/main/extension-api.ts",
+      "bytes": 8490,
+      "sha256": "ae4efa46b600bf12f396c56d3916a43e561bc6101fc78481868afff931a26a1c"
+    },
+    {
+      "path": "fixtures/beta/src/main/extension-platform.ts",
+      "bytes": 1814,
+      "sha256": "45da9ecd8fbabc99527cf3955c22ab371ba0aa0fcd839a6930c35cffde231db7"
+    },
+    {
+      "path": "fixtures/beta/src/main/extension-runner.ts",
+      "bytes": 161086,
+      "sha256": "16bfc8a0393bd6378b4c06a19082daa46eb4b26cfe2ae78492ad3dd074e24744"
+    },
+    {
+      "path": "fixtures/beta/src/main/extensionWorker/main.ts",
+      "bytes": 5970,
+      "sha256": "e77f30b0150ca01d393eedfb9064799453ee126ad50b37ae1d1b84f63f6135d0"
+    },
+    {
+      "path": "fixtures/beta/src/main/extensions/raycastShim.test.ts",
+      "bytes": 6026,
+      "sha256": "51da5167ec17fed7426795e1ab25905d0dc9cb12246570588afc10cd74338038"
+    },
+    {
+      "path": "fixtures/beta/src/main/extensions/raycastShim.ts",
+      "bytes": 15067,
+      "sha256": "e9b731ab1b48228d91c1cd58b78282b998c5bba6a94ceab746734d1d2bfe5bbb"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/action-runtime-overlay.tsx",
+      "bytes": 2915,
+      "sha256": "3eb4a59db0de59460ea8a2c7f4a1f6ec5b514a512f49352bf373db64ed58d604"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/action-runtime-registry.tsx",
+      "bytes": 692,
+      "sha256": "ffbad6f70410c6d2dcf4af217abe4ab297d69c0cae2c993263c008a423175e16"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/action-runtime.tsx",
+      "bytes": 391,
+      "sha256": "6e7a41e3d1a7ee2028103683f08fb8ed20e4b2e5751e182afe9f8e189522a28b"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/detail-runtime.test.ts",
+      "bytes": 1028,
+      "sha256": "94acca3393a3636f7188a2ceac4a5e0429c2a0bc3433b02163602bdbe38beef4"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/detail-runtime.tsx",
+      "bytes": 23478,
+      "sha256": "32eecb50891e0f282bd3d78d8a38193ec24540bf70c3fdc8e43a1d368c97d54c"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/form-runtime.test.ts",
+      "bytes": 3876,
+      "sha256": "3c449509be65d1ffc8949a11835fadeb6300b7d647898309b5abc5b2e94af112"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/form-runtime.tsx",
+      "bytes": 21087,
+      "sha256": "8568d0ac5be03eea97d0def38067dbbbdce5ae97c36a51024857ef20dce299a6"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/grid-content.ts",
+      "bytes": 761,
+      "sha256": "71cf7151e1986389b550cf5a069383af79b88de2726176859496ac40fd8d9d41"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/grid-runtime.test.ts",
+      "bytes": 587,
+      "sha256": "633fcbbd5048f46d69388016481dfd54f800a8ff404810a556eb7ccfa3b626a0"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/grid-runtime.tsx",
+      "bytes": 15804,
+      "sha256": "9c19dffaf9596814315f61d8a66eaa3b914a138d8f10c860e01efd245d3e2e5b"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/hooks.ts",
+      "bytes": 4050,
+      "sha256": "50bb0c3ad3721f600abe3091f3adba1c6515c2d639356b20c94c7f5cc96a492b"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/index.tsx",
+      "bytes": 7419,
+      "sha256": "7fc8413a72b92e8f88b0939cd93f91624018fe0765baa1e71b38b86f8cc77a64"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/ipc-bridge.ts",
+      "bytes": 1110,
+      "sha256": "17784548760d476efebeae36d5b03e9c50a69c2da2b92ce0163cabbfe9566d97"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/list-runtime.tsx",
+      "bytes": 32174,
+      "sha256": "c7e253c34ce6e0a5132cab96bf1f0388393faca79ff57c3fdc7956f377a0ab0f"
+    },
+    {
+      "path": "fixtures/beta/src/renderer/src/raycast-api/native-v2-visuals.test.ts",
+      "bytes": 3347,
+      "sha256": "afa00333ff5293015fc1d6c87dc429ef9fdb6322a89887c6ad7b6b5b49fcb182"
+    },
+    {
+      "path": "fixtures/beta/src/shared/extensionRuntime.ts",
+      "bytes": 3838,
+      "sha256": "837b804856baa6b16ebda080920af456268fefcffa7a1c3e2964b95d697ee387"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/Cargo.lock",
+      "bytes": 159699,
+      "sha256": "91ef4593d06ac9bb9b0a748c150c07fa70c5ff5bb771677acdcf8742c0e28a28"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/Cargo.toml.fixture",
+      "bytes": 2141,
+      "sha256": "98b2ca2dd131ec4ca8a9dc9d5c41a7fd2c25a3079f58813e051a1b9761849b0c",
+      "sourcePath": "src-tauri/Cargo.toml"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/src/native_core/common.rs",
+      "bytes": 7627,
+      "sha256": "280a0a2f0dd04a8570b320aafc0c3ece0f5de8ddb21c363645567d6a35d84da7"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/src/native_core/extensions/mod.rs",
+      "bytes": 6248,
+      "sha256": "73c3625fdaadb944431191294dbfaa4f38a878faa03f15a917863be9c311e04f"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/src/native_core/extensions/native.rs",
+      "bytes": 14551,
+      "sha256": "3192be6beccc110cd6daa22db412e0f90685957ec51b3c71103b78e239978691"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/src/native_core/extensions/native_tests.rs",
+      "bytes": 23475,
+      "sha256": "75c4bf5ec47d0d64d3d8e51db0989e708d1474b1bb41a667098bd645394145fc"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/src/native_core/extensions/v2_catalog.json",
+      "bytes": 71862,
+      "sha256": "6cba59a7a6ec10dbe985c8fa4f4be82e4b2495b3718fd9a9a8dd7b3169e977e7"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/src/native_core/extensions/v2_runtime.rs",
+      "bytes": 3110,
+      "sha256": "df96675ba916a3d70b8e0e5da76f7a9422d238cc3fbe3a5a6178fef21662a6a0"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/src/native_core/extensions/v2_sdk.rs",
+      "bytes": 6755,
+      "sha256": "4f987346f863db9a7bd6aa1d5a99e149925dc69a44d629727ccc80a567cd27c2"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/src/native_core/launcher/clipboard.rs",
+      "bytes": 32045,
+      "sha256": "b76fc181e2685d5025a117fc2b53d8c166dc32cdded4651359d42c5bb78a6706"
+    },
+    {
+      "path": "fixtures/beta/src-tauri/src/native_core/platform.rs",
+      "bytes": 28906,
+      "sha256": "75fa7ce4204edbbdb0f4a5410895b32239939b707256c484dc3c4f9de390b5a1"
+    },
+    {
+      "path": "fixtures/npm/fuse.js-6.6.2.tgz",
+      "bytes": 99470,
+      "sha256": "46b0db45c4d35222fe167b9965064e8b7a3e8ed3435d1ad01caf076d16416a41"
+    },
+    {
+      "path": "fixtures/own/.eslintrc.json",
+      "bytes": 240,
+      "sha256": "e83643eb09480ca4cba10297b57e6a663405f8e778dd7ed1434317448c817917"
+    },
+    {
+      "path": "fixtures/own/.gitignore",
+      "bytes": 68,
+      "sha256": "b027adcbb6131ef49be335e9a699657351ca3d5bb2b474379634d1714f5a585b"
+    },
+    {
+      "path": "fixtures/own/.prettierrc",
+      "bytes": 47,
+      "sha256": "e4e2625d4a5da23f12048d6566a1247e870991c96733a2f9d7a1bd1ab9a37c8f"
+    },
+    {
+      "path": "fixtures/own/CHANGELOG.md",
+      "bytes": 65,
+      "sha256": "992e622c1eb93f3ee9fd16977c2bca113aba6a937f1290862a4e4479804e8520"
+    },
+    {
+      "path": "fixtures/own/LICENSE",
+      "bytes": 1087,
+      "sha256": "1d7dbdbcd4fe14dfa08334fab20bffad23c1290f195792a3a4420dadf9912f81"
+    },
+    {
+      "path": "fixtures/own/README.md",
+      "bytes": 47,
+      "sha256": "d4565d828aceb17a2e882f79b64e0df2cd837bcba980fedad323bc03145c2761"
+    },
+    {
+      "path": "fixtures/own/assets/icon.png",
+      "bytes": 7516,
+      "sha256": "e245364b6c13c1c70abf5a6e9255442477639e18526f857d086b5d611ca24191"
+    },
+    {
+      "path": "fixtures/own/package-lock.json",
+      "bytes": 119440,
+      "sha256": "5eac702445fefae7ed3f31643478d9c9dc0bd53413dbe239fdb47e39da5b10a3"
+    },
+    {
+      "path": "fixtures/own/package.json",
+      "bytes": 1469,
+      "sha256": "9c863667c851df856a79240645d4ec44f91deeac4924ce3b1db7c93ed5f87b7a"
+    },
+    {
+      "path": "fixtures/own/raycast-env.d.ts",
+      "bytes": 647,
+      "sha256": "69f21c35eda9ce3c635ab53d2224932e4b6b2fade691271bb54d9875283e6333"
+    },
+    {
+      "path": "fixtures/own/src/commands.ts",
+      "bytes": 14452,
+      "sha256": "1cd0d57a58a5b0703c1a5afff9e00132ecc1534a8306be6e41ce04738d1b271b"
+    },
+    {
+      "path": "fixtures/own/src/index.tsx",
+      "bytes": 1440,
+      "sha256": "82bf2ef3702e80226fbd570d612da6a65d0ebdea93c6f8dbad0cc6bddcbc30bd"
+    },
+    {
+      "path": "fixtures/own/test/smoke.test.ts",
+      "bytes": 460,
+      "sha256": "5bb15ce7d6fb4ff55bc7666af23516b20d8f5a5dc167e89b3707f68f913a58fb"
+    },
+    {
+      "path": "fixtures/own/tsconfig.json",
+      "bytes": 469,
+      "sha256": "3f734c2d4726ab882b39a4dcff5a35660d510c2a4ff23d51ebea59f6dea9ed28"
+    },
+    {
+      "path": "fixtures/upstream/LICENSE",
+      "bytes": 1064,
+      "sha256": "7f727f8b20cdd0e65f84e70b9cac2fce337dcecee4dc88955eb012ea27f02755"
+    },
+    {
+      "path": "fixtures/upstream/extensions/latex-math-symbols/assets/icon.png",
+      "bytes": 7516,
+      "sha256": "e245364b6c13c1c70abf5a6e9255442477639e18526f857d086b5d611ca24191"
+    },
+    {
+      "path": "fixtures/upstream/extensions/latex-math-symbols/package.json",
+      "bytes": 1047,
+      "sha256": "600a151a8ed5507d474bc7cfa6ef94fa51aa4b892648e39de868740c581252d3"
+    },
+    {
+      "path": "fixtures/upstream/extensions/latex-math-symbols/src/commands.ts",
+      "bytes": 14452,
+      "sha256": "1cd0d57a58a5b0703c1a5afff9e00132ecc1534a8306be6e41ce04738d1b271b"
+    },
+    {
+      "path": "fixtures/upstream/extensions/latex-math-symbols/src/index.tsx",
+      "bytes": 1440,
+      "sha256": "82bf2ef3702e80226fbd570d612da6a65d0ebdea93c6f8dbad0cc6bddcbc30bd"
+    },
+    {
+      "path": "libraries/fuse.js/LICENSE",
+      "bytes": 11343,
+      "sha256": "cc807e3caa26cdee316bab2ff6fdb508a2f619b74959fe59e513ef6e61635ebe"
+    },
+    {
+      "path": "libraries/fuse.js/fuse.common.js",
+      "bytes": 63524,
+      "sha256": "063769ea9f5c7d6ccafb530e8ec8bf705c5e4fccf4c976701f2892994015cb62"
+    },
+    {
+      "path": "libraries/fuse.js/package.json",
+      "bytes": 3056,
+      "sha256": "f613d0e98fe1f8829d1e6113de07de3b01aaf92c7bb0b77530a69e27cc2642cd"
+    },
+    {
+      "path": "data/commands.json",
+      "bytes": 17308,
+      "sha256": "1e36408ee9ed87871482570eff984ba566ffcb8523b329b41c5ed3e6e2b7dd78"
+    },
+    {
+      "path": "assets/icon.png",
+      "bytes": 7516,
+      "sha256": "e245364b6c13c1c70abf5a6e9255442477639e18526f857d086b5d611ca24191"
+    },
+    {
+      "path": "LICENSE-MIT-UPSTREAM",
+      "bytes": 1064,
+      "sha256": "7f727f8b20cdd0e65f84e70b9cac2fce337dcecee4dc88955eb012ea27f02755"
+    },
+    {
+      "path": "LICENSE-APACHE-2.0",
+      "bytes": 11343,
+      "sha256": "cc807e3caa26cdee316bab2ff6fdb508a2f619b74959fe59e513ef6e61635ebe"
+    }
+  ]
+}

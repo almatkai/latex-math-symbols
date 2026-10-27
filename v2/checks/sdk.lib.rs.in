@@ -1,0 +1,18 @@
+//! Tauri-only stub: common.rs and SDK are copied unchanged from the pinned beta.
+extern crate self as tauri;
+#[derive(Clone)]
+pub struct AppHandle;
+pub trait Emitter {
+    fn emit(&self, channel: &str, value: serde_json::Value) -> Result<(), String>;
+}
+impl Emitter for AppHandle {
+    fn emit(&self, _: &str, _: serde_json::Value) -> Result<(), String> {
+        Err("Tauri is a test stub; real events are disabled".into())
+    }
+}
+pub mod native_core {
+    pub mod common;
+    pub mod extensions {
+        pub mod v2_sdk;
+    }
+}
